@@ -665,16 +665,14 @@ const Application = new Lang.Class({
             while ((info = fileEnum.next_file(null)) !== null) {
                 let name = info.get_name();
 
-                if (/.*\.plugin$/.test(name)) {
+                if (/.*$/.test(name)) {
                     let parsed = this._loadJSON(plugindir + "/" + name + "/metadata.json");
 
                     if (parsed && parsed.category) {
                         plugins[parsed.category] = plugins[parsed.category] || {};
 
-                        let plugin = name.replace(/\.plugin$/, "");
-
-                        plugins[parsed.category][plugin] = parsed;
-                        plugins[parsed.category][plugin].path = plugindir + "/" + name;
+                        plugins[parsed.category][name] = parsed;
+                        plugins[parsed.category][name].path = plugindir + "/" + name;
                     }
                 }
             }
